@@ -29,8 +29,8 @@
   },
   "author": "mddanish00 <distantwaterstream@gmail.com>",
   "contributors": [
-		"Lily Scott <me@suchipi.com>"
-	],
+    "Lily Scott <me@suchipi.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mddanish00/jsxdom.git"
@@ -44,8 +44,17 @@
   ],
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "prettier": "^3.4.2",
     "typescript": "~5.6.2",
     "vite": "^6.0.2",
     "vite-plugin-dts": "^4.3.0"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": true,
+    "semi": true,
+    "singleQuote": true,
+    "printWidth": 100,
+    "trailingComma": "all"
   }
 }
