@@ -1,25 +1,40 @@
 {
-  "name": "@suchipi/jsxdom",
+  "name": "@mddanish00/jsxdom",
   "version": "0.4.1",
+  "type": "module",
   "description": "createElement-style JSX factory that creates HTML elements directly",
   "license": "MIT",
-  "main": "./dist/jsxdom.umd.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "default": "./dist/jsxdom.es.js",
-      "import": "./dist/jsxdom.es.js",
-      "require": "./dist/jsxdom.cjs.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "rm -rf dist && npm run build:lib && npm run build:types",
-    "build:lib": "vite build",
-    "build:types": "tsc -p . --emitDeclarationOnly",
-    "repl": "node -r ./replenv"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "author": "Lily Scott <me@suchipi.com>",
-  "repository": "suchipi/jsxdom",
+  "author": "mddanish00 <distantwaterstream@gmail.com>",
+  "contributors": [
+		"Lily Scott <me@suchipi.com>"
+	],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mddanish00/jsxdom.git"
+  },
   "keywords": [
     "jsx",
     "web",
@@ -27,12 +42,10 @@
     "document",
     "createElement"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
-    "jsdom": "^19.0.0",
-    "typescript": "^4.6.4",
-    "vite": "^2.9.8"
+    "@types/node": "^22.10.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.2",
+    "vite-plugin-dts": "^4.3.0"
   }
 }
