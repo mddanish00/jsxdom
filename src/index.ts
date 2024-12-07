@@ -72,47 +72,47 @@ export const nodeFactory = (
   return node;
 };
 
-interface JSXFactory {
-  <SomeTagName extends TagName>(
-    type: SomeTagName
-  ): HTMLElementTagNameMap[SomeTagName];
+export function jsx<SomeTagName extends TagName>(
+  type: SomeTagName
+): HTMLElementTagNameMap[SomeTagName];
 
-  <SomeTagName extends TagName, InputAttrs extends Attrs<SomeTagName>>(
-    type: SomeTagName,
-    attrs: InputAttrs
-  ): HTMLElementTagNameMap[SomeTagName];
+export function jsx<
+  SomeTagName extends TagName,
+  InputAttrs extends Attrs<SomeTagName>
+>(type: SomeTagName, attrs: InputAttrs): HTMLElementTagNameMap[SomeTagName];
 
-  <SomeTagName extends TagName>(
-    type: SomeTagName,
-    attrs: Attrs<SomeTagName>,
-    ...children: Array<Child>
-  ): HTMLElementTagNameMap[SomeTagName];
+export function jsx<SomeTagName extends TagName>(
+  type: SomeTagName,
+  attrs: Attrs<SomeTagName>,
+  ...children: Array<Child>
+): HTMLElementTagNameMap[SomeTagName];
 
-  <SomeTagName extends TagName>(
-    type: SomeTagName,
-    ...children: Array<Child>
-  ): HTMLElementTagNameMap[SomeTagName];
+export function jsx<SomeTagName extends TagName>(
+  type: SomeTagName,
+  ...children: Array<Child>
+): HTMLElementTagNameMap[SomeTagName];
 
-  <Result extends HTMLElement>(type: (props: {}) => Result): Result;
+export function jsx<Result extends HTMLElement>(
+  type: (props: {}) => Result
+): Result;
 
-  <Result extends HTMLElement, Props extends {}>(
-    type: (props: Props) => Result,
-    props: Props
-  ): Result;
+export function jsx<Result extends HTMLElement, Props extends {}>(
+  type: (props: Props) => Result,
+  props: Props
+): Result;
 
-  <Result extends HTMLElement, Props extends {}>(
-    type: (props: Props) => Result,
-    props: Props,
-    ...children: Array<Child>
-  ): Result;
+export function jsx<Result extends HTMLElement, Props extends {}>(
+  type: (props: Props) => Result,
+  props: Props,
+  ...children: Array<Child>
+): Result;
 
-  <Result extends HTMLElement>(
-    type: (props: {}) => Result,
-    ...children: Array<Child>
-  ): Result;
-}
+export function jsx<Result extends HTMLElement>(
+  type: (props: {}) => Result,
+  ...children: Array<Child>
+): Result;
 
-export const jsx: JSXFactory = (type: any, ...args: Array<any>) => {
+export function jsx(type: any, ...args: Array<any>) {
   let rawProps: null | { [key: string | number | symbol]: any } = null;
   let children: null | Array<Child> = null;
 
@@ -155,8 +155,21 @@ export const jsx: JSXFactory = (type: any, ...args: Array<any>) => {
     // user component function
     return type(props);
   }
-};
+}
+
+export namespace JSXInternal {
+  export type IntrinsicElements = {
+    [key in TagName]: Attrs<key>;
+  };
+}
+
+export namespace jsx.JSX {
+  export type IntrinsicElements = JSXInternal.IntrinsicElements;
+}
 
 // for compat when using via aliasing to "react" package instead of jsx fragment config
 export const createElement = jsx;
 export const Fragment = DocumentFragment;
+export namespace JSX {
+  export type IntrinsicElements = JSXInternal.IntrinsicElements;
+}
